@@ -10,10 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartaActivity extends AppCompatActivity {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private List<InfoPlat> llista;
 
@@ -22,10 +29,10 @@ public class CartaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carta);
         //construim llista ficticia
-        InfoPlat plat1=new InfoPlat("galetes","farina","0.99");
-        InfoPlat plat2=new InfoPlat("orxata","xufla","1.35");
-        InfoPlat plat3=new InfoPlat("MacMenu","Rates","1.55");
-        InfoPlat plat4=new InfoPlat("Flan","Nata","9.99");
+        InfoPlat plat1=new InfoPlat("001","galetes","farina","plat1","0.99");
+        InfoPlat plat2=new InfoPlat("002","orxata","xufla","plat1","1.35");
+        InfoPlat plat3=new InfoPlat("003","MacMenu","Rates","plat1","1.55");
+        InfoPlat plat4=new InfoPlat("004","Flan","Nata","plat1","9.99");
         llista=new ArrayList<>();
         llista.add(plat1);
         llista.add(plat2);
@@ -35,18 +42,27 @@ public class CartaActivity extends AppCompatActivity {
         RecyclerView recyclerViewMenu=findViewById(R.id.recyclerViewMenu);
         recyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewMenu.setAdapter(new Adapter());
+
+        final TextView test = findViewById(R.id.test);
+
+        db.collection("plats").document("plattest").addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                test.setText(documentSnapshot.getString("platid"));
+            }
+        });
     }
 
     //creem la clase Viewholder
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView nomView;
-        TextView ingredientsView;
+        //TextView ingredientsView;
         TextView preuView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.nomView=itemView.findViewById(R.id.nomView);
-            this.ingredientsView=itemView.findViewById(R.id.ingredientsView);
+            //this.ingredientsView=itemView.findViewById(R.id.ingredientsView);
             this.preuView=itemView.findViewById(R.id.preuView);
         }
     }
@@ -68,7 +84,7 @@ public class CartaActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             InfoPlat infoPlatItem=llista.get(position);
             holder.nomView.setText(infoPlatItem.getNom());
-            holder.ingredientsView.setText(infoPlatItem.getIngredients());
+            //holder.ingredientsView.setText(infoPlatItem.getIngredients());
             holder.preuView.setText(infoPlatItem.getPreu());
         }
 
