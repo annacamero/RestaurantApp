@@ -1,6 +1,5 @@
 package com.example.annacamero.restaurantapp;
 
-import android.graphics.ColorSpace;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +53,12 @@ public class CartaActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< Updated upstream
         db.collection("plats").add(plat1);*/
+//=======
+        db.collection("plats").document("macarrons").set(plat1);
+
+//>>>>>>> Stashed changes
 
         //db.collection("plats").addSnapshotListener(new EventListener<QuerySnapshot>() {
        //     @Override
@@ -92,7 +95,7 @@ public class CartaActivity extends AppCompatActivity {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView=getLayoutInflater().inflate(R.layout.holder_menu,parent,false);
+            View itemView=getLayoutInflater().inflate(R.layout.plat_view,parent,false);
             return new ViewHolder(itemView);
         }
 
