@@ -5,15 +5,17 @@ public class InfoPlat {
     private String nom;
     private String ingredients;
     private String tipus;
-    private String preu;
+    private Double preu;
     private Boolean marcat;
+
+    public InfoPlat() {}
 
     public InfoPlat(String id, String nom, String ingredients, String tipus, String preu) {
         this.id = id;
         this.nom = nom;
         this.ingredients = ingredients;
         this.tipus=tipus;
-        this.preu = preu;
+        this.preu = Double.parseDouble(preu);
         this.marcat=false;
     }
 
@@ -37,11 +39,11 @@ public class InfoPlat {
 
     public String getTipus(){return tipus;}
 
-    public String getPreu() {
+    public Double getPreu() {
         return preu;
     }
 
-    public void setPreu(String preu) {
+    public void setPreu(Double preu) {
         this.preu = preu;
     }
 

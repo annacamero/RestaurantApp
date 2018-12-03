@@ -1,18 +1,22 @@
 package com.example.annacamero.restaurantapp;
 
+import android.icu.text.IDNA;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,23 @@ public class CartaActivity extends AppCompatActivity {
         llista.add(plat3);
         llista.add(plat4);
 
+        //db.collection("plats").add(plat2);
+        db.collection("plats").document("02").addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                InfoPlat info = documentSnapshot.toObject(InfoPlat.class);
+            }
+        });
+
+        db.collection("plats").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                for (DocumentSnapshot doc : documentSnapshots) {
+                    Log.i("RestaurantApp", doc.getString("nom"));
+                }
+            }
+        });
+
         RecyclerView recyclerViewMenu=findViewById(R.id.recyclerViewMenu);
         recyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewMenu.setAdapter(new Adapter());
@@ -56,7 +77,7 @@ public class CartaActivity extends AppCompatActivity {
 <<<<<<< Updated upstream
         db.collection("plats").add(plat1);*/
 //=======
-        db.collection("plats").document("macarrons").set(plat1);
+        //db.collection("plats").document("macarrons").set(plat1);
 
 //>>>>>>> Stashed changes
 
@@ -104,7 +125,7 @@ public class CartaActivity extends AppCompatActivity {
             InfoPlat infoPlatItem=llista.get(position);
             holder.nomView.setText(infoPlatItem.getNom());
             //holder.ingredientsView.setText(infoPlatItem.getIngredients());
-            holder.preuView.setText(infoPlatItem.getPreu());
+            holder.preuView.setText(Double.toString(infoPlatItem.getPreu()));
         }
 
 
