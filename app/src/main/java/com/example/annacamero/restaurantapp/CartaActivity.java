@@ -44,6 +44,8 @@ public class CartaActivity extends AppCompatActivity {
         recyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewMenu.setAdapter(new Adapter());
 
+        /*
+
         final TextView test = findViewById(R.id.test);
 
         db.collection("plats").document("plattest").addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -52,6 +54,8 @@ public class CartaActivity extends AppCompatActivity {
                 test.setText(documentSnapshot.getString("platid"));
             }
         });
+
+        db.collection("plats").add(plat1);*/
 
         //db.collection("plats").addSnapshotListener(new EventListener<QuerySnapshot>() {
        //     @Override
