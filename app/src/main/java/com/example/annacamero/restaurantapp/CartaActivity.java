@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -41,6 +43,15 @@ public class CartaActivity extends AppCompatActivity {
         llista.add(plat2);
         llista.add(plat3);
         llista.add(plat4);
+
+        ImageView logoview = findViewById(R.id.logoview);
+        ImageView iconosushiview= findViewById(R.id.iconosushiview);
+
+        Glide.with(this).load("file///android_asset/search.png").into(iconosushiview);
+
+
+
+
 
         //db.collection("plats").add(plat2);
         db.collection("plats").document("02").addSnapshotListener(new EventListener<DocumentSnapshot>() {
