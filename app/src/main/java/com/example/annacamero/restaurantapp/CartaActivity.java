@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -28,26 +29,22 @@ public class CartaActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private List<InfoPlat> llista;
+    private Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carta);
-        //construim llista ficticia
-        InfoPlat plat1=new InfoPlat("001","galetes","farina","plat1","0.99");
-        InfoPlat plat2=new InfoPlat("002","orxata","xufla","plat1","1.35");
-        InfoPlat plat3=new InfoPlat("003","MacMenu","Rates","plat1","1.55");
-        InfoPlat plat4=new InfoPlat("004","Flan","Nata","plat1","9.99");
         llista=new ArrayList<>();
-        llista.add(plat1);
-        llista.add(plat2);
-        llista.add(plat3);
-        llista.add(plat4);
 
         ImageView logoview = findViewById(R.id.logoview);
         ImageView iconosushiview= findViewById(R.id.iconosushiview);
+        iconosushiview.setImageDrawable(getResources().getDrawable(R.drawable.ic_search));
 
-        Glide.with(this).load("file///android_asset/search.png").into(iconosushiview);
+        /*Glide.with(this)
+                .load("file:///android_asset/search.png")
+                .apply(RequestOptions.centerInsideTransform())
+                .into(iconosushiview);*/
 
 
 
@@ -64,15 +61,26 @@ public class CartaActivity extends AppCompatActivity {
         db.collection("plats").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                llista.clear();
                 for (DocumentSnapshot doc : documentSnapshots) {
+                    try {
+                        InfoPlat plat = doc.toObject(InfoPlat.class);
+                        llista.add(plat);
+                    } catch (RuntimeException err) {
+                        Log.e("RestaurantApp",
+                              String.format("Error de conversió al plat %s: %s", doc.getId(), err.toString()));
+                    }
                     Log.i("RestaurantApp", doc.getString("nom"));
                 }
+                adapter.notifyDataSetChanged();
             }
         });
 
         RecyclerView recyclerViewMenu=findViewById(R.id.recyclerViewMenu);
         recyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewMenu.setAdapter(new Adapter());
+
+        adapter = new Adapter();
+        recyclerViewMenu.setAdapter(adapter);
 
         /*
 
@@ -107,13 +115,14 @@ public class CartaActivity extends AppCompatActivity {
     //creem la clase Viewholder
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView nomView;
-        //TextView ingredientsView;
+        TextView headerView;
         TextView preuView;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.nomView=itemView.findViewById(R.id.nomView);
-            //this.ingredientsView=itemView.findViewById(R.id.ingredientsView);
+            this.headerView=itemView.findViewById(R.id.header_view);
             this.preuView=itemView.findViewById(R.id.preuView);
         }
     }
@@ -135,7 +144,9 @@ public class CartaActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             InfoPlat infoPlatItem=llista.get(position);
             holder.nomView.setText(infoPlatItem.getNom());
-            //holder.ingredientsView.setText(infoPlatItem.getIngredients());
+            //holder.headerView.setText("hola");
+            holder.headerView.setVisibility(View.GONE);
+            // holder.ingredientsView.setText(infoPlatItem.getIngredients());
             holder.preuView.setText(Double.toString(infoPlatItem.getPreu()));
         }
 

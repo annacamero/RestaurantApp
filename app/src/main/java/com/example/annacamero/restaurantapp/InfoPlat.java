@@ -10,12 +10,12 @@ public class InfoPlat {
 
     public InfoPlat() {}
 
-    public InfoPlat(String id, String nom, String ingredients, String tipus, String preu) {
+    public InfoPlat(String id, String nom, String ingredients, String tipus, Double preu) {
         this.id = id;
         this.nom = nom;
         this.ingredients = ingredients;
         this.tipus=tipus;
-        this.preu = Double.parseDouble(preu);
+        this.preu = preu;
         this.marcat=false;
     }
 
