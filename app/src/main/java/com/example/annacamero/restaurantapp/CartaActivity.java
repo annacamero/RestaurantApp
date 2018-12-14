@@ -149,7 +149,5 @@ public class CartaActivity extends AppCompatActivity {
             // holder.ingredientsView.setText(infoPlatItem.getIngredients());
             holder.preuView.setText(Double.toString(infoPlatItem.getPreu()));
         }
-
-
     }
 }
