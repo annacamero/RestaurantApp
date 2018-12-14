@@ -2,14 +2,14 @@ package com.example.joanfluviamarin.restaurantappcuina;
 
 public class Comanda {
     private String nom;
-    private String taula;
+    private int taula;
     private String referencia;
-    private String quantitat;
+    private int quantitat;
     private boolean fet;
 
     public Comanda() {}
 
-    public Comanda(String nom, String taula, String referencia, String quantitat, boolean fet) {
+    public Comanda(String nom, int taula, String referencia, int quantitat, boolean fet) {
         this.nom = nom;
         this.taula = taula;
         this.referencia = referencia;
@@ -25,11 +25,11 @@ public class Comanda {
         this.nom = nom;
     }
 
-    public String getTaula() {
+    public int getTaula() {
         return taula;
     }
 
-    public void setTaula(String taula) {
+    public void setTaula(int taula) {
         this.taula = taula;
     }
 
@@ -41,11 +41,11 @@ public class Comanda {
         this.referencia = referencia;
     }
 
-    public String getQuantitat() {
+    public int getQuantitat() {
         return quantitat;
     }
 
-    public void setQuantitat(String quantitat) {
+    public void setQuantitat(int quantitat) {
         this.quantitat = quantitat;
     }
 

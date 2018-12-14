@@ -113,10 +113,10 @@ public class ComandaActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Comanda comandaItem=llista5.get(position);
 
-            holder.taulaView.setText(comandaItem.getTaula());
+            holder.taulaView.setText(Integer.toString(comandaItem.getTaula()));
             holder.codiPlatView.setText(comandaItem.getReferencia());
             holder.nomPlatView.setText(comandaItem.getNom());
-            holder.quantPlatView.setText(comandaItem.getQuantitat());
+            holder.quantPlatView.setText(Integer.toString(comandaItem.getQuantitat()));
             holder.checkBoxView.setChecked(comandaItem.isFet());
         }
 
