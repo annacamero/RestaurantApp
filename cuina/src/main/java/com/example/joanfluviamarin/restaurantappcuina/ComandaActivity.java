@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class comandaActivity extends AppCompatActivity {
+public class ComandaActivity extends AppCompatActivity {
 
     private List<Comanda> llista5;
 
