@@ -7,6 +7,8 @@ public class Comanda {
     private String quantitat;
     private boolean fet;
 
+    public Comanda() {}
+
     public Comanda(String nom, String taula, String referencia, String quantitat, boolean fet) {
         this.nom = nom;
         this.taula = taula;
