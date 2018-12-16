@@ -5,17 +5,29 @@ public class Comanda {
     private int taula;
     private String referencia;
     private int quantitat;
+    private Double preu;
     private boolean fet;
 
     public Comanda() {
     }
 
-    public Comanda(String nom, int taula, String referencia, int quantitat, boolean fet) {
+
+
+    public Comanda(String nom, int taula, String referencia, int quantitat,Double preu, boolean fet) {
         this.nom = nom;
         this.taula = taula;
         this.referencia = referencia;
         this.quantitat = quantitat;
+        this.preu = preu;
         this.fet = fet;
+    }
+
+    public Double getPreu() {
+        return preu;
+    }
+
+    public void setPreu(Double preu) {
+        this.preu = preu;
     }
 
     public String getNom() {

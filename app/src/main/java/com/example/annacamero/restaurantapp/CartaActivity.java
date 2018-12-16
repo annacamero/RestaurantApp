@@ -1,5 +1,6 @@
 package com.example.annacamero.restaurantapp;
 
+import android.content.Intent;
 import android.icu.text.IDNA;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -37,20 +38,19 @@ public class CartaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_carta);
         llista=new ArrayList<>();
 
-        ImageView logoview = findViewById(R.id.logoview);
-        ImageView iconosushiview= findViewById(R.id.iconosushiview);
-        iconosushiview.setImageDrawable(getResources().getDrawable(R.drawable.ic_search));
-
-        /*Glide.with(this)
-                .load("file:///android_asset/search.png")
-                .apply(RequestOptions.centerInsideTransform())
-                .into(iconosushiview);*/
 
 
 
+        //definicions necesaries per al RecyclerView
+
+        RecyclerView recyclerViewMenu=findViewById(R.id.recyclerViewMenu);
+        recyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new Adapter();
+        recyclerViewMenu.setAdapter(adapter);
 
 
-        //db.collection("plats").add(plat2);
+        //Sincronització amb FireBase
         db.collection("plats").document("02").addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
@@ -68,7 +68,7 @@ public class CartaActivity extends AppCompatActivity {
                         llista.add(plat);
                     } catch (RuntimeException err) {
                         Log.e("RestaurantApp",
-                              String.format("Error de conversió al plat %s: %s", doc.getId(), err.toString()));
+                                String.format("Error de conversió al plat %s: %s", doc.getId(), err.toString()));
                     }
                     Log.i("RestaurantApp", doc.getString("nom"));
                 }
@@ -76,40 +76,16 @@ public class CartaActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerViewMenu=findViewById(R.id.recyclerViewMenu);
-        recyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
+        //linquem imatges al Layout
+        ImageView logoview = findViewById(R.id.logoview);
+        ImageView iconosushiview= findViewById(R.id.iconosushiview);
+        iconosushiview.setImageDrawable(getResources().getDrawable(R.drawable.ic_search));
 
-        adapter = new Adapter();
-        recyclerViewMenu.setAdapter(adapter);
+        /*Glide.with(this)
+                .load("file:///android_asset/search.png")
+                .apply(RequestOptions.centerInsideTransform())
+                .into(iconosushiview);*/
 
-        /*
-
-        final TextView test = findViewById(R.id.test);
-
-        db.collection("plats").document("plattest").addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                test.setText(documentSnapshot.getString("platid"));
-            }
-        });
-
-<<<<<<< Updated upstream
-        db.collection("plats").add(plat1);*/
-//=======
-        //db.collection("plats").document("macarrons").set(plat1);
-
-//>>>>>>> Stashed changes
-
-        //db.collection("plats").addSnapshotListener(new EventListener<QuerySnapshot>() {
-       //     @Override
-       //     public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-
-       //         for (DocumentSnapshot doc : documentSnapshots) {
-       //             InfoPlat plat = doc.toObject(InfoPlat.class);
-//
-  //              }
- //           }
-  //      })
     }
 
     //creem la clase Viewholder
@@ -127,6 +103,7 @@ public class CartaActivity extends AppCompatActivity {
         }
     }
 
+    //creem la clase Adapter
     class Adapter extends RecyclerView.Adapter<ViewHolder>{
 
         @Override
@@ -150,4 +127,12 @@ public class CartaActivity extends AppCompatActivity {
             holder.preuView.setText(Double.toString(infoPlatItem.getPreu()));
         }
     }
+
+    //Linquem boto amb ResumenActivity
+    public void onCliclVerPedido(View view) {
+        Intent intent =new Intent(this, ResumenActivity.class);
+        startActivity(intent);
+    }
+
+
 }

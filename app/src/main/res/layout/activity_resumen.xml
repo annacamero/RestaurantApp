@@ -35,21 +35,22 @@
         android:id="@+id/button3"
         android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:text="Button"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="onClickCarta"
+        android:text="Carta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="140"
+        android:layout_width="@android:dimen/thumbnail_width"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -80,6 +81,7 @@
         tools:text="14.55€" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewResum"
         android:layout_width="369dp"
         android:layout_height="239dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
