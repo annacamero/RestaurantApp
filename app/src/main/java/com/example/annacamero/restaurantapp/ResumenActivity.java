@@ -27,6 +27,8 @@ public class ResumenActivity extends AppCompatActivity {
 
     private List<Comanda> llista2;
     private Adapter adapter;
+    int taula=3;
+    Double totalPreu=0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,10 @@ public class ResumenActivity extends AppCompatActivity {
                 llista2.clear();
                 for (DocumentSnapshot doc : documentSnapshots) {
                     try {
-                        Comanda comanda = doc.toObject(Comanda.class);
-                        llista2.add(comanda);
+                        if(doc.getDouble("taula")==taula) {
+                            Comanda comanda = doc.toObject(Comanda.class);
+                            llista2.add(comanda);
+                        }
                     } catch (RuntimeException err) {
                         Log.e("RestaurantApp",
                                 String.format("Error de conversió al plat %s: %s", doc.getId(), err.toString()));
@@ -69,6 +73,13 @@ public class ResumenActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+
+        //perque em diu que la llista esta buida????
+        for (Comanda num : llista2){
+                totalPreu=totalPreu+num.getPreu();
+        }
+        TextView totalPreuView=findViewById(R.id.totalPreuView);
+        totalPreuView.setText(Double.toString(totalPreu));
     }
 
 
