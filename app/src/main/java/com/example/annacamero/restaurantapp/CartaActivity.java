@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class CartaActivity extends AppCompatActivity {
 
     private List<InfoPlat> llista;
     private Adapter adapter;
+    private int quantPlat=1;
+    int taula=3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,22 +91,8 @@ public class CartaActivity extends AppCompatActivity {
 
     }
 
-    private void onClickPlat(int pos) {
-        Toast.makeText(this, "Has clicat " + pos, Toast.LENGTH_SHORT).show();
-        AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.alert_dialog_plat,null);
-        dialogBuilder.setView(dialogView);
 
-        TextView diagPlatView = (TextView)dialogView.findViewById(R.id.diagNomView);
-        TextView diagDescrView= (TextView)dialogView.findViewById(R.id.diagDescrView);
-        TextView diagQuantView= (TextView)dialogView.findViewById(R.id.diagQuantView);
-        diagPlatView.setText("nom");
-        diagDescrView.setText("descripció");
-        diagQuantView.setText("5");
-        AlertDialog alertDialog=dialogBuilder.create();
-        alertDialog.show();
-    }
+
 
     //creem la clase Viewholder
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -157,6 +146,69 @@ public class CartaActivity extends AppCompatActivity {
         Intent intent =new Intent(this, ResumenActivity.class);
         startActivity(intent);
     }
+
+    //permetem clicar el layout
+    private void onClickPlat(int pos) {
+        quantPlat=1;
+        Toast.makeText(this, "Has clicat " + pos, Toast.LENGTH_SHORT).show();
+
+        final AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alert_dialog_plat,null);
+        dialogBuilder.setView(dialogView);
+
+        final String nom=llista.get(pos).getNom();
+        String descripcio=llista.get(pos).getIngredients();
+        final String id=llista.get(pos).getId();
+        final Double preu=llista.get(pos).getPreu();
+
+        TextView diagPlatView = (TextView)dialogView.findViewById(R.id.diagNomView);
+        TextView diagDescrView= (TextView)dialogView.findViewById(R.id.diagDescrView);
+        final TextView diagQuantView= (TextView)dialogView.findViewById(R.id.diagQuantView);
+        diagPlatView.setText(nom);
+        diagDescrView.setText(descripcio);
+        diagQuantView.setText(String.valueOf(quantPlat));
+        final AlertDialog alertDialog=dialogBuilder.create();
+        alertDialog.show();
+
+        Button btnPlus=(Button)dialogView.findViewById(R.id.btnPlus);
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantPlat=quantPlat+1;
+                diagQuantView.setText(String.valueOf(quantPlat));
+            }
+        });
+
+        Button btnMinus=(Button)dialogView.findViewById(R.id.btnMinus);
+        btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(quantPlat>1)quantPlat=quantPlat-1;
+                diagQuantView.setText(String.valueOf(quantPlat));
+            }
+        });
+
+        Button btnCanc=(Button)dialogView.findViewById(R.id.btnCanc);
+        btnCanc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        Button btnAcc=(Button)dialogView.findViewById(R.id.btnAcc);
+        btnAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Comanda comanda1=new Comanda(nom,taula,id,quantPlat,preu*quantPlat,false);
+                db.collection("comandes").add(comanda1);
+                alertDialog.dismiss();
+            }
+        });
+
+    }
+
 
 
 }

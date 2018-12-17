@@ -6,15 +6,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ResumenActivity extends AppCompatActivity {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private List<Comanda> llista2;
     private Adapter adapter;
 
@@ -29,19 +39,36 @@ public class ResumenActivity extends AppCompatActivity {
         adapter = new Adapter();
         recyclerViewResum.setAdapter(adapter);
 
-        Comanda comanda1=new Comanda("espagueti",2,"5",2,5.5,false);
-        Comanda comanda2=new Comanda("espagueti2",2,"9",1,5.2,true);
-        Comanda comanda3=new Comanda("espagueti3",3,"1",1,2.5,false);
-        Comanda comanda4=new Comanda("espagueti4",3,"6",3,1.9,false);
-        Comanda comanda5=new Comanda("espagueti5",7,"3",2,6.1,false);
-
+        //Comanda comanda1=new Comanda("espagueti",2,"5",2,5.5,false);
+        //Comanda comanda2=new Comanda("espagueti2",2,"9",1,5.2,true);
+        //Comanda comanda3=new Comanda("espagueti3",3,"1",1,2.5,false);
+        //Comanda comanda4=new Comanda("espagueti4",3,"6",3,1.9,false);
+        //Comanda comanda5=new Comanda("espagueti5",7,"3",2,6.1,false);
 
         llista2=new ArrayList<>();
-        llista2.add(comanda1);
-        llista2.add(comanda2);
-        llista2.add(comanda3);
-        llista2.add(comanda4);
-        llista2.add(comanda5);
+        //llista2.add(comanda1);
+        //llista2.add(comanda2);
+        //llista2.add(comanda3);
+        //llista2.add(comanda4);
+        //llista2.add(comanda5);
+
+        db.collection("comandes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                llista2.clear();
+                for (DocumentSnapshot doc : documentSnapshots) {
+                    try {
+                        Comanda comanda = doc.toObject(Comanda.class);
+                        llista2.add(comanda);
+                    } catch (RuntimeException err) {
+                        Log.e("RestaurantApp",
+                                String.format("Error de conversió al plat %s: %s", doc.getId(), err.toString()));
+                    }
+                    Log.i("RestaurantApp", doc.getString("nom"));
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
 
@@ -89,8 +116,9 @@ public class ResumenActivity extends AppCompatActivity {
 
     //linquem boto a CartaActivity
     public void onClickCarta(View view) {
-        Intent intent=new Intent(this,CartaActivity.class);
-        startActivity(intent);
+        //Intent intent=new Intent(this,CartaActivity.class);
+        //startActivity(intent);
+        finish();
 
     }
 }
