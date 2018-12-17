@@ -95,9 +95,9 @@ public class CartaActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.alert_dialog_plat,null);
         dialogBuilder.setView(dialogView);
 
-        EditText diagPlatView = (EditText)dialogView.findViewById(R.id.diagNomView);
-        EditText diagDescrView= (EditText)dialogView.findViewById(R.id.diagDescrView);
-        EditText diagQuantView= (EditText)dialogView.findViewById(R.id.diagQuantView);
+        TextView diagPlatView = (TextView)dialogView.findViewById(R.id.diagNomView);
+        TextView diagDescrView= (TextView)dialogView.findViewById(R.id.diagDescrView);
+        TextView diagQuantView= (TextView)dialogView.findViewById(R.id.diagQuantView);
         diagPlatView.setText("nom");
         diagDescrView.setText("descripció");
         diagQuantView.setText("5");
