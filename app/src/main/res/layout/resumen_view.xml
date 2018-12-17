@@ -19,7 +19,7 @@
         tools:text="1x" />
 
     <TextView
-        android:id="@+id/nomView"
+        android:id="@+id/diagNomView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

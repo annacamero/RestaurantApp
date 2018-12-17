@@ -1,21 +1,21 @@
 package com.example.annacamero.restaurantapp;
 
 import android.content.Intent;
-import android.icu.text.IDNA;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -88,6 +88,23 @@ public class CartaActivity extends AppCompatActivity {
 
     }
 
+    private void onClickPlat(int pos) {
+        Toast.makeText(this, "Has clicat " + pos, Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alert_dialog_plat,null);
+        dialogBuilder.setView(dialogView);
+
+        EditText diagPlatView = (EditText)dialogView.findViewById(R.id.diagNomView);
+        EditText diagDescrView= (EditText)dialogView.findViewById(R.id.diagDescrView);
+        EditText diagQuantView= (EditText)dialogView.findViewById(R.id.diagQuantView);
+        diagPlatView.setText("nom");
+        diagDescrView.setText("descripció");
+        diagQuantView.setText("5");
+        AlertDialog alertDialog=dialogBuilder.create();
+        alertDialog.show();
+    }
+
     //creem la clase Viewholder
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView nomView;
@@ -97,9 +114,16 @@ public class CartaActivity extends AppCompatActivity {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            this.nomView=itemView.findViewById(R.id.nomView);
+            this.nomView=itemView.findViewById(R.id.diagNomView);
             this.headerView=itemView.findViewById(R.id.header_view);
             this.preuView=itemView.findViewById(R.id.preuView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    onClickPlat(pos);
+                }
+            });
         }
     }
 

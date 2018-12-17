@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class ResumenActivity extends AppCompatActivity {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            this.nomView=itemView.findViewById(R.id.nomView);
+            this.nomView=itemView.findViewById(R.id.diagNomView);
             this.quantView=itemView.findViewById(R.id.quantView);
             this.preuView=itemView.findViewById(R.id.preuView);
         }
