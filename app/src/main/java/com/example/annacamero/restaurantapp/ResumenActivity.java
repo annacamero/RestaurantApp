@@ -63,6 +63,7 @@ public class ResumenActivity extends AppCompatActivity {
                         if(doc.getDouble("taula")==taula) {
                             Comanda comanda = doc.toObject(Comanda.class);
                             llista2.add(comanda);
+
                         }
                     } catch (RuntimeException err) {
                         Log.e("RestaurantApp",
@@ -70,16 +71,23 @@ public class ResumenActivity extends AppCompatActivity {
                     }
                     Log.i("RestaurantApp", doc.getString("nom"));
                 }
+                //mogut dins del db.collection. ara com a mínim funciona...
+                for (Comanda num : llista2){
+                    totalPreu=totalPreu+num.getPreu();
+                }
+                TextView totalPreuView=findViewById(R.id.totalPreuView);
+                totalPreuView.setText(Double.toString(totalPreu)+"€");
                 adapter.notifyDataSetChanged();
             }
         });
 
         //perque em diu que la llista esta buida????
-        for (Comanda num : llista2){
-                totalPreu=totalPreu+num.getPreu();
-        }
-        TextView totalPreuView=findViewById(R.id.totalPreuView);
-        totalPreuView.setText(Double.toString(totalPreu));
+        //for (Comanda num : llista2){
+               //totalPreu=totalPreu+num.getPreu();
+       // }
+        //int val=llista2.size();
+        //TextView totalPreuView=findViewById(R.id.totalPreuView);
+        //totalPreuView.setText(Double.toString(totalPreu));
     }
 
 
