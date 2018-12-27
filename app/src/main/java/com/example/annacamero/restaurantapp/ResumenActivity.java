@@ -61,22 +61,14 @@ public class ResumenActivity extends AppCompatActivity {
         //llista2.add(comanda4);
         //llista2.add(comanda5);
 
-        db.collection("comandes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("comandes").whereEqualTo("taula", taula).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 llista2.clear();
                 totalPreu=0.0;
                 for (DocumentSnapshot doc : documentSnapshots) {
-                    try {
-                        if(doc.getDouble("taula")==taula) {
-                            Comanda comanda = doc.toObject(Comanda.class);
-                            llista2.add(comanda);
-
-                        }
-                    } catch (RuntimeException err) {
-                        Log.e("RestaurantApp",
-                                String.format("Error de conversió al plat %s: %s", doc.getId(), err.toString()));
-                    }
+                    Comanda comanda = doc.toObject(Comanda.class);
+                    llista2.add(comanda);
                     Log.i("RestaurantApp", doc.getString("nom"));
                 }
                 //mogut dins del db.collection. ara com a mínim funciona...
@@ -84,12 +76,26 @@ public class ResumenActivity extends AppCompatActivity {
                     totalPreu=totalPreu+num.getPreu();
                 }
                 TextView totalPreuView=findViewById(R.id.totalPreuView);
-                totalPreuView.setText(Double.toString(totalPreu)+"€");
+                totalPreuView.setText(String.format("%.2f€", totalPreu));
                 adapter.notifyDataSetChanged();
             }
         });
 
-        //perque em diu que la llista esta buida????
+        // perque em diu que la llista esta buida????
+        /*
+
+            Perquè us deveu pensar que el codi del Firebase s'executa i després fas el teu 'for'
+            però no és així. Quan poses un listener, el codi del listener s'executará després,
+            és a dir que el db.collection("...").addSnapshotListener(...) triga en fer-se un
+            nanosegon (perquè només es deixar preparat el listener, i també s'engega la consulta,
+            però fins que les dades no tornin no s'executarà el listener), i immediatament
+            s'executa lo següent, que és el teu bucle que mira la llista. Com que la llista
+            es crea buida, doncs llavors està buida fins que no s'ompli en el listener, es clar.
+
+            2018-12-27 -pauek
+
+         */
+
         //for (Comanda num : llista2){
                //totalPreu=totalPreu+num.getPreu();
        // }
