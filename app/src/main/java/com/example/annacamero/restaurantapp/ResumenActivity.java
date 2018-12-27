@@ -1,5 +1,6 @@
 package com.example.annacamero.restaurantapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +11,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -58,6 +65,7 @@ public class ResumenActivity extends AppCompatActivity {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 llista2.clear();
+                totalPreu=0.0;
                 for (DocumentSnapshot doc : documentSnapshots) {
                     try {
                         if(doc.getDouble("taula")==taula) {
@@ -140,4 +148,48 @@ public class ResumenActivity extends AppCompatActivity {
         finish();
 
     }
+
+    //afegim boto per a borrar comanda. accés sols del personal del Restaurant.
+    public void onClickBorrar(View view){
+        db.collection("comandes").whereEqualTo("taula",taula)
+        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(DocumentSnapshot doc : task.getResult()){
+                        String borrar=doc.getId();
+                        Toast.makeText(ResumenActivity.this, doc.getId(), Toast.LENGTH_SHORT).show();
+                        db.collection("comandes").document(borrar).delete();
+                    }
+                }
+            }
+        });
+        //Toast.makeText(this, Integer.toString(val), Toast.LENGTH_SHORT).show();
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
