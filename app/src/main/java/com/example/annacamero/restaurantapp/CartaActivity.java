@@ -150,7 +150,7 @@ public class CartaActivity extends AppCompatActivity {
     //permetem clicar el layout
     private void onClickPlat(int pos) {
         quantPlat=1;
-        Toast.makeText(this, "Has clicat " + pos, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Has clicat " + pos, Toast.LENGTH_SHORT).show();
 
         final AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();

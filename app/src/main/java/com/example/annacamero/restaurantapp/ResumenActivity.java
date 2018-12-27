@@ -158,7 +158,7 @@ public class ResumenActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     for(DocumentSnapshot doc : task.getResult()){
                         String borrar=doc.getId();
-                        Toast.makeText(ResumenActivity.this, doc.getId(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ResumenActivity.this, doc.getId(), Toast.LENGTH_SHORT).show();
                         db.collection("comandes").document(borrar).delete();
                     }
                 }
