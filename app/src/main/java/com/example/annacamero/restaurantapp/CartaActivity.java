@@ -31,15 +31,18 @@ public class CartaActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private List<InfoPlat> llista;
+    private List<Comanda> llista2;
     private Adapter adapter;
     private int quantPlat=1;
     int taula=3;
+    Double totalPreu=0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carta);
         llista=new ArrayList<>();
+        llista2=new ArrayList<>();
 
 
 
@@ -88,6 +91,26 @@ public class CartaActivity extends AppCompatActivity {
                 .load("file:///android_asset/search.png")
                 .apply(RequestOptions.centerInsideTransform())
                 .into(iconosushiview);*/
+
+        db.collection("comandes").whereEqualTo("taula", taula).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                llista2.clear();
+                totalPreu=0.0;
+                for (DocumentSnapshot doc : documentSnapshots) {
+                    Comanda comanda = doc.toObject(Comanda.class);
+                    llista2.add(comanda);
+                    Log.i("RestaurantApp", doc.getString("nom"));
+                }
+                //mogut dins del db.collection. ara com a mínim funciona...
+                for (Comanda num : llista2){
+                    totalPreu=totalPreu+num.getPreu();
+                }
+                TextView totalPreuView=findViewById(R.id.totalview);
+                totalPreuView.setText(String.format("%.2f€", totalPreu));
+                adapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
