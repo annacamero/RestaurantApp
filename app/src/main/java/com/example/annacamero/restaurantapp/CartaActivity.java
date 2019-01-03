@@ -134,8 +134,14 @@ public class CartaActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             InfoPlat infoPlatItem=llista.get(position);
             holder.nomView.setText(infoPlatItem.getNom());
-            //holder.headerView.setText("hola");
+            holder.headerView.setText(infoPlatItem.getTipus());
             holder.headerView.setVisibility(View.GONE);
+            if(position==0){
+                holder.headerView.setVisibility(View.VISIBLE);
+            }
+            else if(!llista.get(position-1).getTipus().equals(infoPlatItem.getTipus()))  {
+                holder.headerView.setVisibility(View.VISIBLE);
+            }
             // holder.ingredientsView.setText(infoPlatItem.getIngredients());
             holder.preuView.setText(Double.toString(infoPlatItem.getPreu()));
         }
