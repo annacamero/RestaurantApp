@@ -3,6 +3,7 @@ package com.example.joanfluviamarin.restaurantappcuina;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,8 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,6 +29,7 @@ import java.util.List;
 public class ComandaActivity extends AppCompatActivity {
 
     private List<Comanda> llista5;
+    private int pos;
     Adapter adapter;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -69,6 +74,8 @@ public class ComandaActivity extends AppCompatActivity {
         recyclerViewMenu.setAdapter(adapter);
     }
 
+
+
     //creem la clase Viewholder
     class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -91,6 +98,7 @@ public class ComandaActivity extends AppCompatActivity {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int pos = getAdapterPosition();
                     llista5.get(pos).setFet(isChecked);
+                    //adapter.notifyDataSetChanged();
                 }
             });
         }
@@ -106,21 +114,49 @@ public class ComandaActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View itemView=getLayoutInflater().inflate(R.layout.hold_comanda,parent,false);
+            //itemView.setVisibility(View.GONE);
             return new ViewHolder(itemView);
         }
 
+
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            Comanda comandaItem=llista5.get(position);
-
-            holder.taulaView.setText(Integer.toString(comandaItem.getTaula()));
-            holder.codiPlatView.setText(comandaItem.getReferencia());
-            holder.nomPlatView.setText(comandaItem.getNom());
-            holder.quantPlatView.setText(Integer.toString(comandaItem.getQuantitat()));
-            holder.checkBoxView.setChecked(comandaItem.isFet());
+                Comanda comandaItem = llista5.get(position);
+                //permet amagar els plats marcats com a fets.
+                //algo que mosqueja, esque encara que des de firebase es marquin com "no fets", si no es reinicia la App, no tornen a apareixer.
+                if(comandaItem.isFet()){
+                    holder.itemView.setVisibility(View.GONE);
+                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
+                }
+                else {
+                    holder.taulaView.setText(Integer.toString(comandaItem.getTaula()));
+                    holder.codiPlatView.setText(comandaItem.getReferencia());
+                    holder.nomPlatView.setText(comandaItem.getNom());
+                    holder.quantPlatView.setText(Integer.toString(comandaItem.getQuantitat()));
+                    holder.checkBoxView.setChecked(comandaItem.isFet());
+                }
         }
 
 
     }
 
+    //al clicar, sobrescriu els fitxers de firebase. la modificació sols afecta a la variable "fet"
+    public void onClickAmagar(View view) {
+
+        db.collection("comandes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    pos=0;
+                    for(DocumentSnapshot doc : task.getResult()){
+                        String position=doc.getId();
+                        db.collection("comandes").document(position).set(llista5.get(pos));
+                        pos=pos+1;
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+        //Toast.makeText(this, Integer.toString(val), Toast.LENGTH_SHORT).show();
+    }
 }
