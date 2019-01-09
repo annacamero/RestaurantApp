@@ -11,10 +11,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class AddPlatActivity extends AppCompatActivity {
     int id;
+    InfoPlat newPlat;
     Button chooseType;
-    String type="PLATO";
+    String type="Plato";
+    EditText editName;
+    EditText editDescrp;
+    EditText editPrice;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +39,9 @@ public class AddPlatActivity extends AppCompatActivity {
             idView.setText("REF.id "+String.valueOf(id));
         }
 
-        EditText editName=findViewById(R.id.editName);
-        EditText editDescrp=findViewById(R.id.editDescrp);
-        EditText editPrice=findViewById(R.id.editPrice);
+        editName=findViewById(R.id.editName);
+        editDescrp=findViewById(R.id.editDescrp);
+        editPrice=findViewById(R.id.editPrice);
         chooseType=findViewById(R.id.btn_chooseType);
         chooseType.setText(type);
 
@@ -57,7 +65,7 @@ public class AddPlatActivity extends AppCompatActivity {
         btnPlato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                type="PLATO";
+                type="Plato";
                 chooseType.setText(type);
                 alertDialog.dismiss();
             }
@@ -66,12 +74,20 @@ public class AddPlatActivity extends AppCompatActivity {
         btnBebida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                type="BEBIDA";
+                type="Bebida";
                 chooseType.setText(type);
                 alertDialog.dismiss();
             }
         });
 
 
+    }
+    public void onClickSave(View view) {
+        String name= String.valueOf(editName.getText());
+
+        newPlat=new InfoPlat(String.valueOf(id),String.valueOf(editName.getText()),String.valueOf(editDescrp.getText()),type,Double.valueOf(String.valueOf(editPrice.getText())));
+
+        db.collection("plats").add(newPlat);
+        finish();
     }
 }
