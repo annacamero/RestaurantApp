@@ -124,8 +124,8 @@ public class CartaActivity extends AppCompatActivity {
     }
 
     public void onClickAddPlat(View view) {
-        Toast.makeText(this, "estic creant un plat", Toast.LENGTH_SHORT).show();
         Intent intent =new Intent(this, AddPlatActivity.class);
+        intent.putExtra("Id.",llista.get(llista.size()-1).getId());
         startActivity(intent);
     }
 }
