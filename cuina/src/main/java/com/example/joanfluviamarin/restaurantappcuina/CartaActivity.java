@@ -1,5 +1,6 @@
 package com.example.joanfluviamarin.restaurantappcuina;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -33,7 +35,6 @@ public class CartaActivity extends AppCompatActivity {
         llista=new ArrayList<>();
 
         //definicions necesaries per al RecyclerView
-
         RecyclerView recyclerViewMenu=findViewById(R.id.recyclerViewMenu);
         recyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));
 
@@ -59,6 +60,7 @@ public class CartaActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 
@@ -114,9 +116,16 @@ public class CartaActivity extends AppCompatActivity {
         }
     }
 
-    private void onClickPlat(int pos) {}
+    private void onClickPlat(int pos) {
+        Toast.makeText(this, String.valueOf(pos), Toast.LENGTH_SHORT).show();
+    }
     public void onClickComanda(View view) {
     finish();
     }
 
+    public void onClickAddPlat(View view) {
+        Toast.makeText(this, "estic creant un plat", Toast.LENGTH_SHORT).show();
+        Intent intent =new Intent(this, AddPlatActivity.class);
+        startActivity(intent);
+    }
 }
