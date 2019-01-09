@@ -1,5 +1,6 @@
 package com.example.joanfluviamarin.restaurantappcuina;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,6 +74,7 @@ public class ComandaActivity extends AppCompatActivity {
         adapter = new Adapter();
         recyclerViewMenu.setAdapter(adapter);
     }
+
 
 
 
@@ -158,5 +160,10 @@ public class ComandaActivity extends AppCompatActivity {
             }
         });
         //Toast.makeText(this, Integer.toString(val), Toast.LENGTH_SHORT).show();
+    }
+
+    public void onClickCarta(View view) {
+        Intent intent =new Intent(this, CartaActivity.class);
+        startActivity(intent);
     }
 }

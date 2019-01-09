@@ -5,10 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartaActivity extends AppCompatActivity {
@@ -16,10 +24,13 @@ public class CartaActivity extends AppCompatActivity {
     private List<InfoPlat> llista;
     private Adapter adapter;
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carta);
+        llista=new ArrayList<>();
 
         //definicions necesaries per al RecyclerView
 
@@ -28,13 +39,34 @@ public class CartaActivity extends AppCompatActivity {
 
         adapter = new Adapter();
         recyclerViewMenu.setAdapter(adapter);
+
+        //sincronització amb FireBase
+        db.collection("plats").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                llista.clear();
+                for (DocumentSnapshot doc : documentSnapshots) {
+                    try {
+                        InfoPlat plat = doc.toObject(InfoPlat.class);
+                        llista.add(plat);
+                    } catch (RuntimeException err) {
+                        Log.e("RestaurantApp",
+                                String.format("Error de conversió al plat %s: %s", doc.getId(), err.toString()));
+                    }
+                    Log.i("RestaurantApp", doc.getString("nom"));
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
+
+
 
     //creem la clase Viewholder
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView nomView;
         TextView headerView;
-        TextView preuView;
+        //TextView preuView;
 
 
         public ViewHolder(View itemView) {
@@ -78,9 +110,13 @@ public class CartaActivity extends AppCompatActivity {
                 holder.headerView.setVisibility(View.VISIBLE);
             }
             // holder.ingredientsView.setText(infoPlatItem.getIngredients());
-            holder.preuView.setText(Double.toString(infoPlatItem.getPreu()));
+            //holder.preuView.setText(Double.toString(infoPlatItem.getPreu()));
         }
     }
 
     private void onClickPlat(int pos) {}
+    public void onClickComanda(View view) {
+    finish();
+    }
+
 }
