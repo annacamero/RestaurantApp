@@ -12,12 +12,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class CartaActivity extends AppCompatActivity {
 
     private List<InfoPlat> llista;
     private Adapter adapter;
+    private List<Integer> borrarPlat;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -33,6 +37,7 @@ public class CartaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carta);
         llista=new ArrayList<>();
+        borrarPlat=new ArrayList<>();
 
         //definicions necesaries per al RecyclerView
         RecyclerView recyclerViewMenu=findViewById(R.id.recyclerViewMenu);
@@ -71,15 +76,16 @@ public class CartaActivity extends AppCompatActivity {
         //TextView preuView;
 
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             this.nomView=itemView.findViewById(R.id.nomView);
             this.headerView=itemView.findViewById(R.id.headerView);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View v) {
+                public boolean onLongClick(View v) {
                     int pos = getAdapterPosition();
                     onClickPlat(pos);
+                    return false;
                 }
             });
         }
@@ -111,6 +117,7 @@ public class CartaActivity extends AppCompatActivity {
             else if(!llista.get(position-1).getTipus().equals(infoPlatItem.getTipus()))  {
                 holder.headerView.setVisibility(View.VISIBLE);
             }
+
             // holder.ingredientsView.setText(infoPlatItem.getIngredients());
             //holder.preuView.setText(Double.toString(infoPlatItem.getPreu()));
         }
@@ -118,6 +125,8 @@ public class CartaActivity extends AppCompatActivity {
 
     private void onClickPlat(int pos) {
         Toast.makeText(this, String.valueOf(pos), Toast.LENGTH_SHORT).show();
+        borrarPlat.add(pos);
+        adapter.notifyDataSetChanged();
     }
     public void onClickComanda(View view) {
     finish();
@@ -127,5 +136,25 @@ public class CartaActivity extends AppCompatActivity {
         Intent intent =new Intent(this, AddPlatActivity.class);
         intent.putExtra("Id.",llista.get(llista.size()-1).getId());
         startActivity(intent);
+    }
+
+    public void onClickDelPlat(View view) {
+        for(int value:borrarPlat){
+            final String borrar=llista.get(value).getId();
+            db.collection("plats").get().addOnCompleteListener (new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        for(DocumentSnapshot doc : task.getResult()){
+                            if(doc.getString("id")==borrar){
+                                String borrar2=doc.getId();
+                                db.collection("plats").document(borrar2).delete();
+                            }
+                            //Toast.makeText(ResumenActivity.this, doc.getId(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
+        }
     }
 }

@@ -60,6 +60,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:background="@drawable/roundedbutton"
+        android:onClick="onClickDelPlat"
         android:text="-"
         app:layout_constraintBaseline_toBaselineOf="@+id/button7"
         app:layout_constraintEnd_toEndOf="parent" />

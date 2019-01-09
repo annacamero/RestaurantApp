@@ -83,7 +83,7 @@ public class AddPlatActivity extends AppCompatActivity {
 
     }
     public void onClickSave(View view) {
-        String name= String.valueOf(editName.getText());
+        //String name= String.valueOf(editName.getText());
 
         newPlat=new InfoPlat(String.valueOf(id),String.valueOf(editName.getText()),String.valueOf(editDescrp.getText()),type,Double.valueOf(String.valueOf(editPrice.getText())));
 
