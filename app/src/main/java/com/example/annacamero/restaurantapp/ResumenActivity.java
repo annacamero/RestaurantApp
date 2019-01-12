@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -36,11 +38,18 @@ public class ResumenActivity extends AppCompatActivity {
     private Adapter adapter;
     int taula=3;
     Double totalPreu=0.0;
+    private ImageView logoview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen);
+
+        logoview = findViewById(R.id.logoview);
+
+        Glide.with(this)
+                .load ("///android_asset/UMAI2.png")
+                .into(logoview);
 
         RecyclerView recyclerViewResum=findViewById(R.id.recyclerViewResum);
         recyclerViewResum.setLayoutManager(new LinearLayoutManager(this));

@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,6 +31,7 @@ public class CartaActivity extends AppCompatActivity {
     private List<InfoPlat> llista;
     private Adapter adapter;
     private List<Integer> borrarPlat;
+    private ImageView logoview;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -38,6 +41,12 @@ public class CartaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_carta);
         llista=new ArrayList<>();
         borrarPlat=new ArrayList<>();
+
+        logoview = findViewById(R.id.logoview);
+
+        Glide.with(this)
+                .load ("///android_asset/UMAI2.png")
+                .into(logoview);
 
         //definicions necesaries per al RecyclerView
         RecyclerView recyclerViewMenu=findViewById(R.id.recyclerViewMenu);
