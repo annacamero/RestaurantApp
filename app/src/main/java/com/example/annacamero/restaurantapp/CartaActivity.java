@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,6 +37,8 @@ public class CartaActivity extends AppCompatActivity {
     private int quantPlat=1;
     int taula=3;
     Double totalPreu=0.0;
+    private ImageView logoview;
+    private ImageView iconosushiview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,19 @@ public class CartaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_carta);
         llista=new ArrayList<>();
         llista2=new ArrayList<>();
+
+
+        logoview = findViewById(R.id.logoview);
+        iconosushiview = findViewById(R.id.iconosushiview);
+
+        Glide.with(this)
+                .load ("///android_asset/UMAI2.png")
+                        .into(logoview);
+
+        Glide.with(this)
+                .load("///android_asset/SUSHI.png")
+                .into(iconosushiview);
+
 
 
 

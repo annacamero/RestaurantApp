@@ -9,28 +9,33 @@
 
     <TextView
         android:id="@+id/diagNomView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="16dp"
-        android:textStyle="bold"
+        android:textColor="@color/gris"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/preuView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_view"
         tools:text="nom" />
 
     <TextView
         android:id="@+id/preuView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="right"
+        android:textColor="@color/gris"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/diagNomView"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintStart_toEndOf="@+id/diagNomView"
@@ -42,7 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="Euros"
+        android:text="€"
+        android:textColor="@color/gris"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/preuView"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -54,7 +61,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/gris"
+        android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
