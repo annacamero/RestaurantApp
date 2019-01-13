@@ -81,7 +81,7 @@ public class ComandaActivity extends AppCompatActivity {
         });
 
 
-        logoview = findViewById(R.id.logoView);
+        logoview = findViewById(R.id.logoview);
         Glide.with(this)
                 .load ("///android_asset/UMAI2.png")
                 .into(logoview);

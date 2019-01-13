@@ -32,11 +32,7 @@ public class AddPlatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plat);
 
-        logoview = findViewById(R.id.logoview);
 
-        Glide.with(this)
-                .load ("///android_asset/UMAI2.png")
-                .into(logoview);
 
         //obtenim l'Id del ultim plat de la llista.
         Intent intent=getIntent();
@@ -53,7 +49,7 @@ public class AddPlatActivity extends AppCompatActivity {
         editPrice=findViewById(R.id.editPrice);
         chooseType=findViewById(R.id.btn_chooseType);
         chooseType.setText(type);
-        logoview = findViewById(R.id.logo_View);
+        logoview = findViewById(R.id.imageView2);
 
         Glide.with(this)
                 .load ("///android_asset/UMAI2.png")
