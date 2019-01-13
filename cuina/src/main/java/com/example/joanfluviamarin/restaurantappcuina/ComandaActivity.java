@@ -1,5 +1,6 @@
 package com.example.joanfluviamarin.restaurantappcuina;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,10 +38,13 @@ public class ComandaActivity extends AppCompatActivity {
     private int pos;
     Adapter adapter;
     private ImageView logoview;
+    private ImageView comandaview;
+    private ImageView cartaview;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +53,20 @@ public class ComandaActivity extends AppCompatActivity {
 
 
         logoview = findViewById(R.id.logoview);
+        comandaview = findViewById(R.id.imageview3);
+        cartaview = findViewById(R.id.cartaview);
 
         Glide.with(this)
                 .load ("///android_asset/UMAI2.png")
                 .into(logoview);
 
+        Glide.with(this)
+                .load("///android_asset/iconocomgris.png")
+                .into(comandaview);
+
+        Glide.with(this)
+                .load("///android_asset/platogranate.png")
+                .into(cartaview);
 
 
         //Comanda comanda1=new Comanda("espagueti","2","5","2",false);
