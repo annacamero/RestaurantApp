@@ -32,6 +32,8 @@ public class CartaActivity extends AppCompatActivity {
     private Adapter adapter;
     private List<Integer> borrarPlat;
     private ImageView logoview;
+    private ImageView comandaview;
+    private ImageView cartaview;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -43,10 +45,20 @@ public class CartaActivity extends AppCompatActivity {
         borrarPlat=new ArrayList<>();
 
         logoview = findViewById(R.id.logoview);
+        comandaview = findViewById(R.id.imageview3);
+        cartaview = findViewById(R.id.cartaview);
 
         Glide.with(this)
                 .load ("///android_asset/UMAI2.png")
                 .into(logoview);
+
+        Glide.with(this)
+                .load("///android_asset/iconocomgranate.png")
+                .into(comandaview);
+
+        Glide.with(this)
+                .load("///android_asset/platogris.png")
+                .into(cartaview);
 
         //definicions necesaries per al RecyclerView
         RecyclerView recyclerViewMenu=findViewById(R.id.recyclerViewMenu);

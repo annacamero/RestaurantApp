@@ -25,9 +25,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/gris"
+        app:fontFamily="@font/bebas"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:fontFamily="@font/bebas"
         tools:text="REF.id" />
 
     <TextView
@@ -39,6 +40,7 @@
         android:layout_marginTop="8dp"
         android:text="NOMBRE PLATO/BEBIDA"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/gris"
         app:fontFamily="@font/bebas"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idView" />
@@ -52,8 +54,9 @@
         android:layout_marginTop="8dp"
         android:text="INGREDIENTES"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/gris"
         app:fontFamily="@font/bebas"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editName" />
 
     <TextView
@@ -65,8 +68,9 @@
         android:layout_marginBottom="8dp"
         android:text="PRECIO"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintBottom_toTopOf="@+id/editPrice"
+        android:textColor="@color/gris"
         app:fontFamily="@font/bebas"
+        app:layout_constraintBottom_toTopOf="@+id/editPrice"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -75,10 +79,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
         android:text="TIPO"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintBottom_toTopOf="@+id/btn_chooseType"
+        android:textColor="@color/gris"
         app:fontFamily="@font/bebas"
+        app:layout_constraintBottom_toTopOf="@+id/btn_chooseType"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -89,12 +95,15 @@
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/granate"
         android:onClick="onClickSave"
         android:text="GUARDAR"
+        android:textColor="@color/blanc"
         app:fontFamily="@font/bebas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -106,6 +115,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="none|textPersonName"
+        android:textColor="@color/gris"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
@@ -117,8 +127,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:textColor="@color/gris"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintStart_toStartOf="parent" />
@@ -136,6 +148,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:singleLine="false"
+        android:textColor="@color/gris"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -145,14 +158,16 @@
     <Button
         android:id="@+id/btn_chooseType"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="42dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/granate"
         android:onClick="onClickChooseType"
+        android:textColor="@color/blanc"
+        app:fontFamily="@font/bebas"
         app:layout_constraintBottom_toTopOf="@+id/button9"
         app:layout_constraintStart_toStartOf="parent"
-        app:fontFamily="@font/bebas"
         tools:text="Button" />
 
 
