@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,6 +34,7 @@ public class ComandaActivity extends AppCompatActivity {
     private List<Comanda> llista5;
     private int pos;
     Adapter adapter;
+    private ImageView logoview;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -40,6 +43,16 @@ public class ComandaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
+
+
+
+        logoview = findViewById(R.id.logoview);
+
+        Glide.with(this)
+                .load ("///android_asset/UMAI2.png")
+                .into(logoview);
+
+
 
         //Comanda comanda1=new Comanda("espagueti","2","5","2",false);
         //Comanda comanda2=new Comanda("espagueti2","1","9","2",true);

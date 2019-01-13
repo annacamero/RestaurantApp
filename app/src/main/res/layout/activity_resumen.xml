@@ -33,6 +33,7 @@
         android:textColor="@color/blanc"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:fontFamily="@font/bebas"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
@@ -49,6 +50,7 @@
         android:textColor="@color/blanc"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:fontFamily="@font/bebas"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

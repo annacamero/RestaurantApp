@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddPlatActivity extends AppCompatActivity {
@@ -21,6 +23,7 @@ public class AddPlatActivity extends AppCompatActivity {
     EditText editName;
     EditText editDescrp;
     EditText editPrice;
+    private ImageView logoview;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -28,6 +31,12 @@ public class AddPlatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plat);
+
+        logoview = findViewById(R.id.logoview);
+
+        Glide.with(this)
+                .load ("///android_asset/UMAI2.png")
+                .into(logoview);
 
         //obtenim l'Id del ultim plat de la llista.
         Intent intent=getIntent();
