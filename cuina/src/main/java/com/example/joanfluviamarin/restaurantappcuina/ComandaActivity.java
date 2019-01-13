@@ -81,6 +81,10 @@ public class ComandaActivity extends AppCompatActivity {
         });
 
 
+        logoview = findViewById(R.id.logoView);
+        Glide.with(this)
+                .load ("///android_asset/UMAI2.png")
+                .into(logoview);
 
         RecyclerView recyclerViewMenu=findViewById(R.id.RecyclerViewComanda);
         recyclerViewMenu.setLayoutManager(new LinearLayoutManager(this));

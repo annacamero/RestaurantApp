@@ -53,8 +53,11 @@ public class AddPlatActivity extends AppCompatActivity {
         editPrice=findViewById(R.id.editPrice);
         chooseType=findViewById(R.id.btn_chooseType);
         chooseType.setText(type);
+        logoview = findViewById(R.id.logo_View);
 
-
+        Glide.with(this)
+                .load ("///android_asset/UMAI2.png")
+                .into(logoview);
 
 
 
