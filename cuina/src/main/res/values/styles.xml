@@ -9,12 +9,15 @@
     </style>
 
 
-    <style name="blacktheme" parent="Theme.AppCompat">
+    <style name="blacktheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="color">@color/gris</item>
         <item name="colorAccent">@color/gris</item>
         <item name="colorPrimary">@color/granate</item>
         <item name="colorPrimaryDark">@color/granate</item>
         <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:checkboxStyle">@color/gris</item>
+        <item name="android:checkable">@color/gris</item>
+
     </style>
 
 </resources>

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.19" />
+        app:layout_constraintGuide_percent="0.22" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -35,12 +35,16 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         android:text="MESA"
+        android:textColor="@color/gris"
+        app:fontFamily="@font/bebas"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
     <TextView
         android:id="@+id/textView5"
@@ -48,9 +52,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="8dp"
         android:text="PLATO"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        android:textColor="@color/gris"
+        app:fontFamily="@font/bebas"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
         app:layout_constraintStart_toEndOf="@+id/textView4" />
 
     <TextView
@@ -59,9 +64,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginRight="80dp"
-        android:layout_marginBottom="8dp"
         android:text="CNT."
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        android:textColor="@color/gris"
+        app:fontFamily="@font/bebas"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button

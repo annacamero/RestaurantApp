@@ -14,6 +14,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/gris"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="TextView" />
@@ -26,6 +27,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="nom"
+        android:textColor="@color/gris"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerView" />
 

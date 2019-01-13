@@ -39,7 +39,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@color/colorAccent" />
+        app:srcCompat="@color/gris" />
 
     <Button
         android:id="@+id/button7"
@@ -51,6 +51,7 @@
         android:onClick="onClickAddPlat"
         android:text="+"
         android:textColor="@color/blanc"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/button8"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
