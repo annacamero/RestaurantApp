@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="blacktheme" parent="Theme.AppCompat">
+        <item name="color">@color/gris</item>
+        <item name="colorAccent">@color/gris</item>
+        <item name="colorPrimary">@color/granate</item>
+        <item name="colorPrimaryDark">@color/granate</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
 </resources>

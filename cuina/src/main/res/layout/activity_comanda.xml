@@ -46,9 +46,9 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
         android:text="PLATO"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintStart_toEndOf="@+id/textView4" />
@@ -57,9 +57,9 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
         android:text="CNT."
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -13,6 +13,7 @@
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
         android:layout_marginBottom="8dp"
+        android:background="@color/granate"
         android:onClick="onClickComanda"
         android:text="Comanda"
         app:layout_constraintBottom_toBottomOf="parent"
